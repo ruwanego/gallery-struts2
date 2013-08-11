@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="debug" strict="true" name="XMLConfigTest"
+               packages="org.apache.logging.log4j.test">
+	<properties>
+		<property name="filename">target/gallery-struts2.log</property>
+	</properties>
+
+	<appenders>
+		<appender type="Console" name="STDOUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</appender>
+		<appender type="File" name="File" fileName="${filename}">
+			<layout type="PatternLayout">
+				<pattern>%d %p %C{1.} [%t] %m%n</pattern>
+			</layout>
+		</appender>
+	</appenders>
+
+	<loggers>
+		<logger name="net.feminaexlux" level="trace" additivity="false">
+			<appender-ref ref="File"/>
+		</logger>
+		<root level="trace">
+			<appender-ref ref="Console"/>
+		</root>
+
+		<logger name="com.opensymphony">
+			<level value="DEBUG"/>
+			<appender-ref ref="Console"/>
+		</logger>
+
+		<logger name="org.apache.struts2">
+			<level value="DEBUG"/>
+			<appender-ref ref="Console"/>
+		</logger>
+	</loggers>
+
+</configuration>
