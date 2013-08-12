@@ -3,6 +3,7 @@ package net.feminaexlux.gallery.struts2.model;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity
@@ -21,6 +22,24 @@ public class Resource {
 
 	public void setKey(ResourceKey key) {
 		this.key = key;
+	}
+
+	@Transient
+	public int getId() {
+		if (key == null) {
+			return 0;
+		}
+
+		return key.getId();
+	}
+
+	@Transient
+	public ResourceType getType() {
+		if (key == null) {
+			return null;
+		}
+
+		return key.getType();
 	}
 
 	public String getName() {

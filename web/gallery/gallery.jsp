@@ -6,6 +6,6 @@
 		<title>Gallery</title>
 	</head>
 	<body>
-		${album.type}: ${album.name}
+		${album.type} (${album.id}): ${album.name}
 	</body>
 </html>

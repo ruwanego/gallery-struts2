@@ -1,10 +1,12 @@
 package net.feminaexlux.gallery.struts2.configuration;
 
+import com.mysql.jdbc.Driver;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -17,11 +19,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 @Configuration
 public class ORM {
 	@Bean
-	public EntityManagerFactory entityManagerFactory() {
+	public EntityManagerFactory entityManagerFactory() throws SQLException {
 		LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
 		lcemfb.setDataSource(dataSource());
 		lcemfb.setJpaDialect(new HibernateJpaDialect());
@@ -41,14 +44,14 @@ public class ORM {
 	}
 
 	@Bean(name = "transactionManager")
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
+	public PlatformTransactionManager annotationDrivenTransactionManager() throws SQLException {
 		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
 		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory());
 		return jpaTransactionManager;
 	}
 
 	@Bean
-	public SessionFactory sessionFactory() {
+	public SessionFactory sessionFactory() throws SQLException {
 		// wire up a session factory
 		AnnotationSessionFactoryBean asFactoryBean = new AnnotationSessionFactoryBean();
 		asFactoryBean.setDataSource(dataSource());
@@ -57,8 +60,8 @@ public class ORM {
 	}
 
 	@Bean
-	public DataSource dataSource() {
-		return new DriverManagerDataSource("jdbc:mysql://Tianne:3306/gallery", "gallery", "gallery");
+	public DataSource dataSource() throws SQLException {
+		return new SimpleDriverDataSource(new Driver(), "jdbc:mysql://Tianne:3306/gallery", "gallery", "gallery");
 	}
 
 	@Bean
