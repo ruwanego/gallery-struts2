@@ -10,7 +10,13 @@
 	<package name="gallery-struts2" extends="struts-default">
 
 		<action name="index">
-			<result>/index.jsp</result>
+			<result type="redirectAction">Gallery</result>
+		</action>
+
+		<action name="Gallery" class="net.feminaexlux.gallery.struts2.controller.Gallery">
+			<result>
+				/gallery/gallery.jsp
+			</result>
 		</action>
 
 	</package>

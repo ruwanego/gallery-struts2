@@ -3,6 +3,7 @@
                packages="org.apache.logging.log4j.test">
 	<properties>
 		<property name="filename">target/gallery-struts2.log</property>
+		<property name="hibernate">target/hibernate.log</property>
 	</properties>
 
 	<appenders>
@@ -14,24 +15,31 @@
 				<pattern>%d %p %C{1.} [%t] %m%n</pattern>
 			</layout>
 		</appender>
+		<appender type="File" name="Hibernate" fileName="${hibernate}">
+			<layout type="PatternLayout">
+				<pattern>%d %p %C{1.} [%t] %m%n</pattern>
+			</layout>
+		</appender>
 	</appenders>
 
 	<loggers>
-		<logger name="net.feminaexlux" level="trace" additivity="false">
-			<appender-ref ref="File"/>
-		</logger>
 		<root level="trace">
 			<appender-ref ref="Console"/>
 		</root>
-
+		<logger name="net.feminaexlux" level="ALL" additivity="false">
+			<appender-ref ref="File"/>
+		</logger>
 		<logger name="com.opensymphony">
 			<level value="DEBUG"/>
 			<appender-ref ref="Console"/>
 		</logger>
-
 		<logger name="org.apache.struts2">
 			<level value="DEBUG"/>
 			<appender-ref ref="Console"/>
+		</logger>
+		<logger name="org.hibernate">
+			<level value="ALL"/>
+			<appender-ref ref="Hibernate"/>
 		</logger>
 	</loggers>
 

@@ -1,13 +1,10 @@
 package net.feminaexlux.gallery.struts2.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import net.feminaexlux.gallery.struts2.model.Resource;
+import net.feminaexlux.gallery.struts2.model.ResourceKey;
 
-public abstract class ResourceDAO {
-	protected EntityManager entityManager;
-
-	@PersistenceContext
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
+public class ResourceDAO extends DAO {
+	public <T extends Resource> T find(Class<T> clazz, ResourceKey key) {
+		return entityManager.find(clazz, key);
 	}
 }

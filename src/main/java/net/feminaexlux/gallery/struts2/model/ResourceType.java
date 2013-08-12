@@ -1,11 +1,27 @@
 package net.feminaexlux.gallery.struts2.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "resource_type")
 public class ResourceType {
-	protected String type;
+	public static final String ALBUM = "Album";
+	public static final String COMIC = "Comic";
+	public static final String IMAGE = "Image";
+	public static final String NSFW = "Nsfw";
+	public static final String TAG = "Tag";
+
+	private String type;
+
+	public ResourceType() {
+	}
+
+	public ResourceType(String type) {
+		this.type = type;
+	}
 
 	@Id
 	@Column(name = "type", nullable = false, length = 50)
