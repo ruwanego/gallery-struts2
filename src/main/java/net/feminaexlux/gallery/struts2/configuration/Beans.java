@@ -5,6 +5,7 @@ import net.feminaexlux.gallery.struts2.service.ResourceService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 @Import({ORM.class})
@@ -15,6 +16,7 @@ public class Beans {
 	}
 
 	@Bean
+	@Scope("prototype")
 	public ResourceService resourceService() {
 		return new ResourceService();
 	}

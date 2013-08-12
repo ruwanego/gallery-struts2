@@ -32,7 +32,7 @@
           <factory-entry name="entityManagerFactory" value="658bc170-e91b-4947-8964-ce55d0ab9db4" />
           <factory-entry name="gallery-struts2" value="658bc170-e91b-4947-8964-ce55d0ab9db4" />
         </datasource-mapping>
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/persistence.xml" />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/web/META-INF/persistence.xml" />
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">

@@ -172,4 +172,4 @@ CREATE TABLE IF NOT EXISTS `tag_type` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 
 
-show warningsalbum;
+show warnings;

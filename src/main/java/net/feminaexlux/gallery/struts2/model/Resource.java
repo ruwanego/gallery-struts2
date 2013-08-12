@@ -1,13 +1,11 @@
 package net.feminaexlux.gallery.struts2.model;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "resource")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Resource {
 	protected ResourceKey key;
 	protected String name;
