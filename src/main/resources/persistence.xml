@@ -5,9 +5,9 @@
 
 	<persistence-unit name="gallery-struts2" transaction-type="RESOURCE_LOCAL">
 		<properties>
-			<property name="hibernate.hbm2ddl.auto" value="" />
-			<property name="hibernate.max_fetch_depth" value="1" />
-			<property name="hibernate.generate_statistics" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value=""/>
+			<property name="hibernate.max_fetch_depth" value="1"/>
+			<property name="hibernate.generate_statistics" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
