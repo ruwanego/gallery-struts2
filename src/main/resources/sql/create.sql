@@ -166,10 +166,32 @@ CREATE TABLE IF NOT EXISTS `tag_type` (
   CONSTRAINT `FK1_tag_type` FOREIGN KEY (`type`) REFERENCES `resource_type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `user_type` (
+  `type` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`type`),
+  CONSTRAINT `FK1_user_type` FOREIGN KEY (`type`) REFERENCES `resource_type` (`type`)
+)
+  COLLATE='utf8_general_ci'
+  ENGINE=InnoDB;
+
+
+CREATE TABLE `user` (
+  `id` INT(10) NOT NULL,
+  `type` VARCHAR(50) NOT NULL,
+  `login` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`, `type`),
+  UNIQUE INDEX `login` (`login`),
+  CONSTRAINT `FK1_user` FOREIGN KEY (`id`, `type`) REFERENCES `resource` (`id`, `type`),
+  CONSTRAINT `FK2_user` FOREIGN KEY (`type`) REFERENCES `user_type` (`type`)
+)
+  COLLATE='utf8_general_ci'
+  ENGINE=InnoDB;
+
+
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
 
 show warnings;

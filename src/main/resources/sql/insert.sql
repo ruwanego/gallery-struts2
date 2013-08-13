@@ -1,23 +1,26 @@
-insert into resource_type(`type`)
-values ('Album'), ('Comic'), ('Image'), ('Nsfw'), ('Tag');
+insert ignore into resource_type(`type`)
+values ('Album'), ('Comic'), ('Image'), ('Nsfw'), ('Tag'), ('Admin');
 
-insert into album_type(`type`)
+insert ignore into album_type(`type`)
 values ('Album'), ('Comic');
 
-insert into image_type(`type`)
+insert ignore into image_type(`type`)
 values ('Image'), ('Nsfw');
 
-insert into tag_type(`type`)
+insert ignore into tag_type(`type`)
 values ('Tag');
 
-insert into resource(`type`, `name`, `created`)
+insert ignore into resource(`type`, `name`, `created`)
 values ('Album', 'Originals', NOW());
 
-insert into album(`id`, `type`, `description`, `slug`)
+insert ignore into album(`id`, `type`, `description`, `slug`)
 values (1, 'Album', 'Original art', 'original-art');
 
-insert into resource(`type`, `name`, `created`)
+insert ignore into resource(`type`, `name`, `created`)
 values ('Album', 'Peacemakers', NOW());
 
-insert into album(`id`, `type`, `parent_id`, `parent_type`, `description`, `slug`)
+insert ignore into album(`id`, `type`, `parent_id`, `parent_type`, `description`, `slug`)
 values (2, 'Album', 1, 'Album', 'A story created by Erin and Lani', 'peacemakers');
+
+insert ignore into user_type(`type`)
+  values ('Admin');

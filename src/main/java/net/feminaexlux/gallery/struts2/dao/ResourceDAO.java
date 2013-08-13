@@ -10,8 +10,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 public class ResourceDAO {
-	private EntityManagerFactory entityManagerFactory;
-	private EntityManager entityManager;
+	protected EntityManagerFactory entityManagerFactory;
+	protected EntityManager entityManager;
 
 	@PersistenceUnit
 	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {

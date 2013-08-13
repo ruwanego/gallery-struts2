@@ -2,6 +2,7 @@ package net.feminaexlux.gallery.struts2.service;
 
 import net.feminaexlux.gallery.struts2.dao.ResourceDAO;
 import net.feminaexlux.gallery.struts2.model.Album;
+import net.feminaexlux.gallery.struts2.model.Resource;
 import net.feminaexlux.gallery.struts2.model.ResourceKey;
 import net.feminaexlux.gallery.struts2.model.ResourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +11,17 @@ import java.util.Date;
 
 public class ResourceService {
 	@Autowired
-	private ResourceDAO resourceDAO;
+	protected ResourceDAO resourceDAO;
 
-	public Album getAlbum(int id) {
-		return resourceDAO.find(Album.class, new ResourceKey(id, ResourceType.ALBUM));
+	public <T extends Resource> T get(int id, String type, Class<T> resourceClass) {
+		return resourceDAO.find(resourceClass, new ResourceKey(id, type));
 	}
 
-	public Album save(Album album) {
-		if (album.getId() > 0) {
-			album.setUpdated(new Date());
+	public <T extends Resource> T save(T resource) {
+		if (resource.getId() > 0) {
+			resource.setUpdated(new Date());
 		}
 
-		return resourceDAO.save(album);
+		return resourceDAO.save(resource);
 	}
 }
