@@ -12,4 +12,8 @@ public class UserDAO extends ResourceDAO {
 		TypedQuery<User> query = entityManager.createQuery("FROM User u WHERE u.username = :username", User.class);
 		return query.getSingleResult();
 	}
+
+	public User save(User user) {
+		return super.save(user);
+	}
 }

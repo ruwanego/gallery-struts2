@@ -13,6 +13,7 @@ public class ResourceType {
 	public static final String IMAGE = "Image";
 	public static final String NSFW = "Nsfw";
 	public static final String TAG = "Tag";
+	public static final String ADMIN = "Admin";
 
 	private String type;
 

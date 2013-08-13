@@ -6,9 +6,15 @@
 	<constant name="struts.devMode" value="true"/>
 
 	<package name="gallery-struts2" extends="struts-default">
+		<action name="Login" class="net.feminaexlux.gallery.struts2.controller.Login">
+			<result>
+				/view/login/login.jsp
+			</result>
+		</action>
+
 		<action name="Gallery" class="net.feminaexlux.gallery.struts2.controller.Gallery">
 			<result>
-				/gallery/gallery.jsp
+				/view/gallery/gallery.jsp
 			</result>
 		</action>
 	</package>
