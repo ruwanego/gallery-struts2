@@ -4,10 +4,8 @@ import net.feminaexlux.gallery.struts2.model.Resource;
 import net.feminaexlux.gallery.struts2.model.ResourceKey;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
+import java.util.List;
 
 public class ResourceDAO {
 	protected EntityManagerFactory entityManagerFactory;
@@ -25,6 +23,11 @@ public class ResourceDAO {
 
 	public <T extends Resource> T find(Class<T> clazz, ResourceKey key) {
 		return entityManager.find(clazz, key);
+	}
+
+	public <T extends Resource> List<T> findAll(Class<T> clazz) {
+		TypedQuery<T> query = entityManager.createQuery("FROM " + clazz.getSimpleName(), clazz);
+		return query.getResultList();
 	}
 
 	@Transactional

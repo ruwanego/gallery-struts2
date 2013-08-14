@@ -1,13 +1,11 @@
 package net.feminaexlux.gallery.struts2.controller;
 
-import com.opensymphony.xwork2.ActionSupport;
 import net.feminaexlux.gallery.struts2.model.Album;
 import net.feminaexlux.gallery.struts2.model.Resource;
-import net.feminaexlux.gallery.struts2.model.ResourceType;
 import net.feminaexlux.gallery.struts2.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class Gallery extends ActionSupport {
+public class Gallery extends Controller {
 	@Autowired
 	private AlbumService albumService;
 

@@ -8,17 +8,17 @@
 		<h1>Login</h1>
 
 		<s:if test="hasActionMessages()">
-			<s:iterator value="actionMessages">
-
+			<s:iterator value="actionMessages" var="message">
+				${message}
 			</s:iterator>
 		</s:if>
 
 		<form action="<s:url action="Login" method="login" />" method="POST">
 			<label for="login_form_login">Login:</label>
-			<input type="text" id="login_form_login" name="form.login" />
+			<input type="text" id="login_form_login" name="form.login"/>
 
 			<label for="login_form_password">Password:</label>
-			<input type="password" id="login_form_password" name="form.password" />
+			<input type="password" id="login_form_password" name="form.password"/>
 
 			<input type="submit" value="Login"/>
 		</form>

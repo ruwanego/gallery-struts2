@@ -16,5 +16,7 @@
 		<form action="<s:url action="Gallery" method="revert" />" method="POST">
 			<input type="submit" value="Revert"/>
 		</form>
+
+		<a href="<s:url action="Login" />">Login</a>
 	</body>
 </html>

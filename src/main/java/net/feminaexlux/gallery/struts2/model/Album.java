@@ -8,7 +8,7 @@ import javax.persistence.*;
 		@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id"),
 		@PrimaryKeyJoinColumn(name = "type", referencedColumnName = "type")
 })
-public class Album extends Resource {
+public class Album extends Resource implements Linkable {
 	private Album parent;
 	private String description;
 	private String slug;
@@ -35,11 +35,13 @@ public class Album extends Resource {
 		this.description = description;
 	}
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
+	@Override
 	public String getSlug() {
 		return slug;
 	}
 
+	@Override
 	public void setSlug(String slug) {
 		this.slug = slug;
 	}

@@ -1,15 +1,15 @@
 package net.feminaexlux.gallery.struts2.dao;
 
-import net.feminaexlux.gallery.struts2.model.Resource;
-import net.feminaexlux.gallery.struts2.model.ResourceKey;
 import net.feminaexlux.gallery.struts2.model.User;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import javax.persistence.TypedQuery;
 
 public class UserDAO extends ResourceDAO {
-	public User findByUsername(String username) {
-		TypedQuery<User> query = entityManager.createQuery("FROM User u WHERE u.username = :username", User.class);
+	public User findByUsername(String login) {
+		TypedQuery<User> query = entityManager.createQuery("FROM User u WHERE u.login = :login", User.class);
+
+		query.setParameter("login", login);
+
 		return query.getSingleResult();
 	}
 

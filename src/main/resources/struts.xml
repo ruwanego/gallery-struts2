@@ -6,15 +6,27 @@
 	<constant name="struts.devMode" value="true"/>
 
 	<package name="gallery-struts2" extends="struts-default">
+		<global-results>
+			<result name="redirect" type="redirectAction">
+				${action}
+			</result>
+		</global-results>
+
+		<action name="Gallery" class="net.feminaexlux.gallery.struts2.controller.Gallery">
+			<result>
+				/view/gallery/gallery.jsp
+			</result>
+		</action>
+
 		<action name="Login" class="net.feminaexlux.gallery.struts2.controller.Login">
 			<result>
 				/view/login/login.jsp
 			</result>
 		</action>
 
-		<action name="Gallery" class="net.feminaexlux.gallery.struts2.controller.Gallery">
+		<action name="Administration" class="net.feminaexlux.gallery.struts2.controller.Administration">
 			<result>
-				/view/gallery/gallery.jsp
+				/view/administration/administration.jsp
 			</result>
 		</action>
 	</package>
