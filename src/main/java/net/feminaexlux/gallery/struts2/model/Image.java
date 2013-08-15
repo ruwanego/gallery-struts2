@@ -12,6 +12,7 @@ public class Image extends Resource implements Linkable {
 	private Album album;
 	private byte[] image;
 	private byte[] thumbnail;
+	private String contentType;
 	private String description;
 	private String slug;
 
@@ -44,6 +45,15 @@ public class Image extends Resource implements Linkable {
 
 	public void setThumbnail(byte[] thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	@Column(name = "content_type", nullable = false, length = 50)
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Column(nullable = false)

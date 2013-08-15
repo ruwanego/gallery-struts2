@@ -43,6 +43,26 @@ public class StringUtilityTest {
 	}
 
 	@Test
+	public void testIsNotEmpty_ValidString() throws Exception {
+		assertTrue(StringUtility.isNotEmpty("Valid string"));
+	}
+
+	@Test
+	public void testIsNotEmpty_Null() throws Exception {
+		assertFalse(StringUtility.isNotEmpty(null));
+	}
+
+	@Test
+	public void testIsNotEmpty_EmptyString() throws Exception {
+		assertFalse(StringUtility.isNotEmpty(""));
+	}
+
+	@Test
+	public void testIsNotEmpty_Spaces() throws Exception {
+		assertFalse(StringUtility.isNotEmpty("              "));
+	}
+
+	@Test
 	public void testEncrypt_ValidUserValidPassword() throws Exception {
 		int id = 12345;
 		String hash = DigestUtils.sha1Hex(ResourceType.ADMIN + "password" + id);

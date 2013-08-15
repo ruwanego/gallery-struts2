@@ -11,6 +11,10 @@ public final class StringUtility {
 		return StringUtils.isEmpty(StringUtils.trimToNull(check));
 	}
 
+	public static boolean isNotEmpty(String check) {
+		return !isEmpty(check);
+	}
+
 	public static String encrypt(String password, User potentialUser) {
 		if (isEmpty(password) || potentialUser == null) {
 			throw new InvalidParameterException();

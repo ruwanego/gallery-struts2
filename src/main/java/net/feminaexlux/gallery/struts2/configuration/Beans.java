@@ -3,6 +3,7 @@ package net.feminaexlux.gallery.struts2.configuration;
 import net.feminaexlux.gallery.struts2.dao.ResourceDAO;
 import net.feminaexlux.gallery.struts2.dao.UserDAO;
 import net.feminaexlux.gallery.struts2.service.AlbumService;
+import net.feminaexlux.gallery.struts2.service.ImageService;
 import net.feminaexlux.gallery.struts2.service.ResourceService;
 import net.feminaexlux.gallery.struts2.service.UserService;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,12 @@ public class Beans {
 	@Scope("prototype")
 	public AlbumService albumService() {
 		return new AlbumService();
+	}
+
+	@Bean
+	@Scope("prototype")
+	public ImageService imageService() {
+		return new ImageService();
 	}
 
 	@Bean
