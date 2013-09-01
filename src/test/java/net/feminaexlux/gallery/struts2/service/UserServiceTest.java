@@ -35,11 +35,11 @@ public class UserServiceTest {
 
 	@Test
 	public void testLoginUser_PasswordMatches() throws Exception {
-		String hashed = DigestUtils.sha1Hex(ResourceType.ADMIN + "password" + USER_ID);
+		String hashed = DigestUtils.sha1Hex(ResourceType.USER + "password" + USER_ID);
 
 		when(user.getId()).thenReturn(USER_ID);
 		when(user.getPassword()).thenReturn(hashed);
-		when(user.getType()).thenReturn(new ResourceType(ResourceType.ADMIN));
+		when(user.getType()).thenReturn(ResourceType.USER);
 		when(userDAO.findByUsername(anyString())).thenReturn(user);
 
 		User loggedInUser = userService.loginUser("test", "password");
@@ -51,7 +51,7 @@ public class UserServiceTest {
 	public void testLoginUser_PasswordDoesNotMatch() throws Exception {
 		when(user.getId()).thenReturn(USER_ID);
 		when(user.getPassword()).thenReturn("other password");
-		when(user.getType()).thenReturn(new ResourceType(ResourceType.ADMIN));
+		when(user.getType()).thenReturn(ResourceType.USER);
 		when(userDAO.findByUsername(anyString())).thenReturn(user);
 
 		userService.loginUser("test", "wrong password");

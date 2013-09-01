@@ -1,11 +1,15 @@
 package net.feminaexlux.gallery.struts2.model;
 
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "resource")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance
+@DiscriminatorColumn(name = "resource_type")
+@DiscriminatorOptions(insert = false)
 public class Resource {
 	protected ResourceKey key;
 	protected String name;
@@ -32,7 +36,7 @@ public class Resource {
 	}
 
 	@Transient
-	public ResourceType getType() {
+	public String getType() {
 		if (key == null) {
 			return null;
 		}
@@ -40,6 +44,7 @@ public class Resource {
 		return key.getType();
 	}
 
+	@Column(name = "resource_name", nullable = false, length = 50)
 	public String getName() {
 		return name;
 	}
@@ -48,6 +53,8 @@ public class Resource {
 		this.name = name;
 	}
 
+	@Column(name = "resource_created")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreated() {
 		return created;
 	}
@@ -56,6 +63,8 @@ public class Resource {
 		this.created = created;
 	}
 
+	@Column(name = "resource_updated")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdated() {
 		return updated;
 	}
@@ -64,6 +73,8 @@ public class Resource {
 		this.updated = updated;
 	}
 
+	@Column(name = "resource_deleted")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDeleted() {
 		return deleted;
 	}

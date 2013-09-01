@@ -20,7 +20,7 @@ public final class StringUtility {
 			throw new InvalidParameterException();
 		}
 
-		return DigestUtils.sha1Hex(potentialUser.getType().getType() + password + potentialUser.getId());
+		return DigestUtils.sha1Hex(potentialUser.getType() + password + potentialUser.getId());
 	}
 
 	public static String createSlug(String name) throws InvalidParameterException {

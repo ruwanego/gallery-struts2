@@ -3,12 +3,20 @@ package net.feminaexlux.gallery.struts2.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "image")
-@PrimaryKeyJoinColumns({
-		@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id"),
-		@PrimaryKeyJoinColumn(name = "type", referencedColumnName = "type")
+@DiscriminatorValue(ResourceType.IMAGE)
+@SecondaryTable(name = "image", pkJoinColumns = {
+		@PrimaryKeyJoinColumn(name = "image_id", referencedColumnName = "resource_id"),
+		@PrimaryKeyJoinColumn(name = "image_type", referencedColumnName = "resource_type")
 })
 public class Image extends Resource implements Linkable {
+	public Image() {
+		this.key = new ResourceKey(0, ResourceType.IMAGE);
+	}
+
+	public Image(String type) {
+		this.key = new ResourceKey(0, type);
+	}
+
 	private Album album;
 	private byte[] image;
 	private byte[] thumbnail;
@@ -18,8 +26,8 @@ public class Image extends Resource implements Linkable {
 
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "album_id", referencedColumnName = "id"),
-			@JoinColumn(name = "album_type", referencedColumnName = "type")
+			@JoinColumn(table = "image", name = "image_album_id", referencedColumnName = "resource_id"),
+			@JoinColumn(table = "image", name = "image_album_type", referencedColumnName = "resource_type")
 	})
 	public Album getAlbum() {
 		return album;
@@ -29,7 +37,7 @@ public class Image extends Resource implements Linkable {
 		this.album = parent;
 	}
 
-	@Column(nullable = false)
+	@Column(table = "image", name = "image_content", nullable = false)
 	public byte[] getImage() {
 		return image;
 	}
@@ -38,7 +46,7 @@ public class Image extends Resource implements Linkable {
 		this.image = image;
 	}
 
-	@Column(nullable = false)
+	@Column(table = "image", name = "image_thumbnail", nullable = false)
 	public byte[] getThumbnail() {
 		return thumbnail;
 	}
@@ -47,7 +55,7 @@ public class Image extends Resource implements Linkable {
 		this.thumbnail = thumbnail;
 	}
 
-	@Column(name = "content_type", nullable = false, length = 50)
+	@Column(table = "image", name = "image_content_type", nullable = false, length = 50)
 	public String getContentType() {
 		return contentType;
 	}
@@ -56,7 +64,7 @@ public class Image extends Resource implements Linkable {
 		this.contentType = contentType;
 	}
 
-	@Column(nullable = false)
+	@Column(table = "image", name = "image_description", nullable = false)
 	public String getDescription() {
 		return description;
 	}
@@ -65,7 +73,7 @@ public class Image extends Resource implements Linkable {
 		this.description = description;
 	}
 
-	@Column(nullable = false, length = 100)
+	@Column(table = "image", name = "image_slug", nullable = false, length = 50)
 	@Override
 	public String getSlug() {
 		return slug;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class Administration extends Controller {
 	private static final Logger LOG = LogManager.getLogger(Administration.class);
@@ -25,6 +26,21 @@ public class Administration extends Controller {
 	private File upload;
 	private String uploadFileName;
 	private String uploadContentType;
+
+	private Map<String, String> form;
+
+	public String saveAlbum() {
+		if (form != null && !form.isEmpty()) {
+			Album album = new Album();
+			album.setName(form.get("album_name"));
+			album.setDescription(form.get("album_description"));
+			albumService.save(album);
+		} else {
+			addActionError("Album details are missing");
+		}
+
+		return SUCCESS;
+	}
 
 	public String upload() {
 		if (upload != null && albumId > 0) {
@@ -62,6 +78,14 @@ public class Administration extends Controller {
 
 	public void setUploadContentType(String uploadContentType) {
 		this.uploadContentType = uploadContentType;
+	}
+
+	public Map<String, String> getForm() {
+		return form;
+	}
+
+	public void setForm(Map<String, String> form) {
+		this.form = form;
 	}
 
 	public List<Album> getAlbums() {

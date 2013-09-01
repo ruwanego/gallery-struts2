@@ -1,23 +1,26 @@
 package net.feminaexlux.gallery.struts2.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.io.Serializable;
 
 @Embeddable
 public class ResourceKey implements Serializable {
 	private int id;
-	private ResourceType type;
+	private String type;
 
 	public ResourceKey() {
 	}
 
 	public ResourceKey(int id, String type) {
 		this.id = id;
-		this.type = new ResourceType(type);
+		this.type = type;
 	}
 
+	@Column(name = "resource_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -26,13 +29,12 @@ public class ResourceKey implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "type", referencedColumnName = "type")
-	public ResourceType getType() {
+	@Column(name = "resource_type", length = 50)
+	public String getType() {
 		return type;
 	}
 
-	public void setType(ResourceType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

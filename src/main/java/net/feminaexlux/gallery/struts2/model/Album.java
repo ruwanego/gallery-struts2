@@ -3,20 +3,24 @@ package net.feminaexlux.gallery.struts2.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "album")
-@PrimaryKeyJoinColumns({
-		@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id"),
-		@PrimaryKeyJoinColumn(name = "type", referencedColumnName = "type")
+@DiscriminatorValue(ResourceType.ALBUM)
+@SecondaryTable(name = "album", pkJoinColumns = {
+		@PrimaryKeyJoinColumn(name = "album_id", referencedColumnName = "resource_id"),
+		@PrimaryKeyJoinColumn(name = "album_type", referencedColumnName = "resource_type")
 })
 public class Album extends Resource implements Linkable {
 	private Album parent;
 	private String description;
 	private String slug;
 
+	public Album() {
+		this.key = new ResourceKey(0, ResourceType.ALBUM);
+	}
+
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "parent_id", referencedColumnName = "id"),
-			@JoinColumn(name = "parent_type", referencedColumnName = "type")
+			@JoinColumn(table = "album", name = "album_parent_id", referencedColumnName = "resource_id"),
+			@JoinColumn(table = "album", name = "album_parent_type", referencedColumnName = "resource_type")
 	})
 	public Album getParent() {
 		return parent;
@@ -26,7 +30,7 @@ public class Album extends Resource implements Linkable {
 		this.parent = parent;
 	}
 
-	@Column(nullable = false)
+	@Column(table = "album", name = "album_description", nullable = false)
 	public String getDescription() {
 		return description;
 	}
@@ -35,7 +39,7 @@ public class Album extends Resource implements Linkable {
 		this.description = description;
 	}
 
-	@Column(nullable = false, length = 100)
+	@Column(table = "album", name = "album_slug", nullable = false, length = 100)
 	@Override
 	public String getSlug() {
 		return slug;

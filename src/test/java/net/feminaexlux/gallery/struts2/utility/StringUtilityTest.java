@@ -65,10 +65,10 @@ public class StringUtilityTest {
 	@Test
 	public void testEncrypt_ValidUserValidPassword() throws Exception {
 		int id = 12345;
-		String hash = DigestUtils.sha1Hex(ResourceType.ADMIN + "password" + id);
+		String hash = DigestUtils.sha1Hex(ResourceType.USER + "password" + id);
 
 		when(user.getId()).thenReturn(id);
-		when(user.getType()).thenReturn(new ResourceType(ResourceType.ADMIN));
+		when(user.getType()).thenReturn(ResourceType.USER);
 
 		assertEquals(hash, StringUtility.encrypt("password", user));
 	}

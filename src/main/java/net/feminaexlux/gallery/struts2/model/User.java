@@ -3,16 +3,16 @@ package net.feminaexlux.gallery.struts2.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
-@PrimaryKeyJoinColumns({
-		@PrimaryKeyJoinColumn(name = "id", referencedColumnName = "id"),
-		@PrimaryKeyJoinColumn(name = "type", referencedColumnName = "type")
+@DiscriminatorValue(ResourceType.USER)
+@SecondaryTable(name = "user", pkJoinColumns = {
+		@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "resource_id"),
+		@PrimaryKeyJoinColumn(name = "user_type", referencedColumnName = "resource_type")
 })
 public class User extends Resource {
 	private String login;
 	private String password;
 
-	@Column(nullable = false, length = 50)
+	@Column(table = "user", name = "user_login", nullable = false, length = 50)
 	public String getLogin() {
 		return login;
 	}
@@ -21,7 +21,7 @@ public class User extends Resource {
 		this.login = login;
 	}
 
-	@Column(nullable = false, length = 50)
+	@Column(table = "user", name = "user_password", nullable = false, length = 50)
 	public String getPassword() {
 		return password;
 	}

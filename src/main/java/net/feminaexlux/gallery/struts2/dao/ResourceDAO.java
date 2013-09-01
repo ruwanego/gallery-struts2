@@ -35,10 +35,15 @@ public class ResourceDAO {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
-		entityManager.merge(resource);
-		entityManager.flush();
+		try {
+			entityManager.merge(resource);
+			entityManager.flush();
 
-		entityManager.getTransaction().commit();
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
 
 		return resource;
 	}
