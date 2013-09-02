@@ -8,7 +8,11 @@ import java.io.Serializable;
 
 @Embeddable
 public class ResourceKey implements Serializable {
+	@Column(name = "resource_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "resource_type", length = 50)
 	private String type;
 
 	public ResourceKey() {
@@ -19,8 +23,6 @@ public class ResourceKey implements Serializable {
 		this.type = type;
 	}
 
-	@Column(name = "resource_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -29,7 +31,6 @@ public class ResourceKey implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "resource_type", length = 50)
 	public String getType() {
 		return type;
 	}

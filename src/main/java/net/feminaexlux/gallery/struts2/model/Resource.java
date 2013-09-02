@@ -11,13 +11,24 @@ import java.util.Date;
 @DiscriminatorColumn(name = "resource_type")
 @DiscriminatorOptions(insert = false)
 public class Resource {
+	@EmbeddedId
 	protected ResourceKey key;
+
+	@Column(name = "resource_name", nullable = false, length = 50)
 	protected String name;
+
+	@Column(name = "resource_created")
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date created;
+
+	@Column(name = "resource_updated")
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updated;
+
+	@Column(name = "resource_deleted")
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date deleted;
 
-	@EmbeddedId
 	public ResourceKey getKey() {
 		return key;
 	}
@@ -44,7 +55,6 @@ public class Resource {
 		return key.getType();
 	}
 
-	@Column(name = "resource_name", nullable = false, length = 50)
 	public String getName() {
 		return name;
 	}
@@ -53,8 +63,6 @@ public class Resource {
 		this.name = name;
 	}
 
-	@Column(name = "resource_created")
-	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreated() {
 		return created;
 	}
@@ -63,8 +71,6 @@ public class Resource {
 		this.created = created;
 	}
 
-	@Column(name = "resource_updated")
-	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdated() {
 		return updated;
 	}
@@ -73,8 +79,6 @@ public class Resource {
 		this.updated = updated;
 	}
 
-	@Column(name = "resource_deleted")
-	@Temporal(TemporalType.TIMESTAMP)
 	public Date getDeleted() {
 		return deleted;
 	}

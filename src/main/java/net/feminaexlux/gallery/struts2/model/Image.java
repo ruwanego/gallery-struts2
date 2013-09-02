@@ -9,6 +9,28 @@ import javax.persistence.*;
 		@PrimaryKeyJoinColumn(name = "image_type", referencedColumnName = "resource_type")
 })
 public class Image extends Resource implements Linkable {
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(table = "image", name = "image_album_id", referencedColumnName = "resource_id"),
+			@JoinColumn(table = "image", name = "image_album_type", referencedColumnName = "resource_type")
+	})
+	private Album album;
+
+	@Column(table = "image", name = "image_content", nullable = false)
+	private byte[] image;
+
+	@Column(table = "image", name = "image_thumbnail", nullable = false)
+	private byte[] thumbnail;
+
+	@Column(table = "image", name = "image_content_type", nullable = false, length = 50)
+	private String contentType;
+
+	@Column(table = "image", name = "image_description", nullable = false)
+	private String description;
+
+	@Column(table = "image", name = "image_slug", nullable = false, length = 50)
+	private String slug;
+
 	public Image() {
 		this.key = new ResourceKey(0, ResourceType.IMAGE);
 	}
@@ -17,18 +39,6 @@ public class Image extends Resource implements Linkable {
 		this.key = new ResourceKey(0, type);
 	}
 
-	private Album album;
-	private byte[] image;
-	private byte[] thumbnail;
-	private String contentType;
-	private String description;
-	private String slug;
-
-	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(table = "image", name = "image_album_id", referencedColumnName = "resource_id"),
-			@JoinColumn(table = "image", name = "image_album_type", referencedColumnName = "resource_type")
-	})
 	public Album getAlbum() {
 		return album;
 	}
@@ -37,7 +47,6 @@ public class Image extends Resource implements Linkable {
 		this.album = parent;
 	}
 
-	@Column(table = "image", name = "image_content", nullable = false)
 	public byte[] getImage() {
 		return image;
 	}
@@ -46,7 +55,6 @@ public class Image extends Resource implements Linkable {
 		this.image = image;
 	}
 
-	@Column(table = "image", name = "image_thumbnail", nullable = false)
 	public byte[] getThumbnail() {
 		return thumbnail;
 	}
@@ -55,7 +63,6 @@ public class Image extends Resource implements Linkable {
 		this.thumbnail = thumbnail;
 	}
 
-	@Column(table = "image", name = "image_content_type", nullable = false, length = 50)
 	public String getContentType() {
 		return contentType;
 	}
@@ -64,7 +71,6 @@ public class Image extends Resource implements Linkable {
 		this.contentType = contentType;
 	}
 
-	@Column(table = "image", name = "image_description", nullable = false)
 	public String getDescription() {
 		return description;
 	}
@@ -73,7 +79,6 @@ public class Image extends Resource implements Linkable {
 		this.description = description;
 	}
 
-	@Column(table = "image", name = "image_slug", nullable = false, length = 50)
 	@Override
 	public String getSlug() {
 		return slug;

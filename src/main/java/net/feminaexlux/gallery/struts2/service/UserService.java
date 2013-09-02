@@ -5,7 +5,7 @@ import net.feminaexlux.gallery.struts2.model.User;
 import net.feminaexlux.gallery.struts2.utility.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class UserService extends ResourceService {
+public class UserService extends ResourceService<User> {
 	@Autowired
 	private UserDAO userDAO;
 
@@ -26,5 +26,10 @@ public class UserService extends ResourceService {
 		}
 
 		return potentialUser;
+	}
+
+	@Override
+	protected UserDAO dao() {
+		return userDAO;
 	}
 }

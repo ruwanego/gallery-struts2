@@ -9,19 +9,23 @@ import javax.persistence.*;
 		@PrimaryKeyJoinColumn(name = "album_type", referencedColumnName = "resource_type")
 })
 public class Album extends Resource implements Linkable {
+	@ManyToOne
+	@JoinColumns({
+			@JoinColumn(table = "album", name = "album_parent_id", referencedColumnName = "resource_id"),
+			@JoinColumn(table = "album", name = "album_parent_type", referencedColumnName = "resource_type")
+	})
 	private Album parent;
+
+	@Column(table = "album", name = "album_description", nullable = false)
 	private String description;
+
+	@Column(table = "album", name = "album_slug", nullable = false, length = 100)
 	private String slug;
 
 	public Album() {
 		this.key = new ResourceKey(0, ResourceType.ALBUM);
 	}
 
-	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(table = "album", name = "album_parent_id", referencedColumnName = "resource_id"),
-			@JoinColumn(table = "album", name = "album_parent_type", referencedColumnName = "resource_type")
-	})
 	public Album getParent() {
 		return parent;
 	}
@@ -30,7 +34,6 @@ public class Album extends Resource implements Linkable {
 		this.parent = parent;
 	}
 
-	@Column(table = "album", name = "album_description", nullable = false)
 	public String getDescription() {
 		return description;
 	}
@@ -39,7 +42,6 @@ public class Album extends Resource implements Linkable {
 		this.description = description;
 	}
 
-	@Column(table = "album", name = "album_slug", nullable = false, length = 100)
 	@Override
 	public String getSlug() {
 		return slug;

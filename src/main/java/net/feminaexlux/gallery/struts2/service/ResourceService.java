@@ -5,19 +5,15 @@ import net.feminaexlux.gallery.struts2.model.Linkable;
 import net.feminaexlux.gallery.struts2.model.Resource;
 import net.feminaexlux.gallery.struts2.model.ResourceKey;
 import net.feminaexlux.gallery.struts2.utility.StringUtility;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-public class ResourceService {
-	@Autowired
-	protected ResourceDAO resourceDAO;
-
-	public <T extends Resource> T get(int id, String type, Class<T> resourceClass) {
-		return resourceDAO.find(resourceClass, new ResourceKey(id, type));
+public abstract class ResourceService<T extends Resource> {
+	public T get(int id, String type, Class<T> resourceClass) {
+		return dao().find(resourceClass, new ResourceKey(id, type));
 	}
 
-	public <T extends Resource> T save(T resource) {
+	public T save(T resource) {
 		if (resource.getId() > 0) {
 			resource.setUpdated(new Date());
 		}
@@ -26,6 +22,8 @@ public class ResourceService {
 			((Linkable) resource).setSlug(StringUtility.createSlug(resource.getName()));
 		}
 
-		return resourceDAO.save(resource);
+		return dao().save(resource);
 	}
+
+	protected abstract <D extends ResourceDAO<T>> D dao();
 }

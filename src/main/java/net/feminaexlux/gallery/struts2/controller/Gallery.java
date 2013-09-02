@@ -6,6 +6,8 @@ import net.feminaexlux.gallery.struts2.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Gallery extends Controller {
+	public static final int ALBUM_ID = 2;
+
 	@Autowired
 	private AlbumService albumService;
 
@@ -13,13 +15,13 @@ public class Gallery extends Controller {
 
 	@Override
 	public String execute() throws Exception {
-		album = albumService.getAlbum(1);
+		album = albumService.getAlbum(ALBUM_ID);
 
 		return SUCCESS;
 	}
 
 	public String save() {
-		album = albumService.getAlbum(1);
+		album = albumService.getAlbum(ALBUM_ID);
 		album.setDescription("Test");
 		album.setName("Test");
 
@@ -29,7 +31,7 @@ public class Gallery extends Controller {
 	}
 
 	public String revert() {
-		album = albumService.getAlbum(1);
+		album = albumService.getAlbum(ALBUM_ID);
 		album.setDescription("Original Art");
 		album.setName("Originals");
 

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import java.util.List;
 
-public class ResourceDAO {
+public abstract class ResourceDAO<T extends Resource> {
 	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
 
@@ -21,24 +21,28 @@ public class ResourceDAO {
 		this.entityManager = entityManager;
 	}
 
-	public <T extends Resource> T find(Class<T> clazz, ResourceKey key) {
+	public T find(Class<T> clazz, ResourceKey key) {
 		return entityManager.find(clazz, key);
 	}
 
-	public <T extends Resource> List<T> findAll(Class<T> clazz) {
+	public List<T> findAll(Class<T> clazz) {
 		TypedQuery<T> query = entityManager.createQuery("FROM " + clazz.getSimpleName(), clazz);
 		return query.getResultList();
 	}
 
 	@Transactional
-	public <T extends Resource> T save(T resource) {
+	public T save(T resource) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
 		try {
-			entityManager.merge(resource);
-			entityManager.flush();
+			if (resource.getId() == 0) {
+				saveNew(resource, entityManager);
+			} else {
+				entityManager.merge(resource);
+			}
 
+			entityManager.flush();
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,4 +51,6 @@ public class ResourceDAO {
 
 		return resource;
 	}
+
+	protected abstract void saveNew(T resource, EntityManager entityManager);
 }

@@ -9,10 +9,12 @@ import javax.persistence.*;
 		@PrimaryKeyJoinColumn(name = "user_type", referencedColumnName = "resource_type")
 })
 public class User extends Resource {
+	@Column(table = "user", name = "user_login", nullable = false, length = 50)
 	private String login;
+
+	@Column(table = "user", name = "user_password", nullable = false, length = 50)
 	private String password;
 
-	@Column(table = "user", name = "user_login", nullable = false, length = 50)
 	public String getLogin() {
 		return login;
 	}
@@ -21,7 +23,6 @@ public class User extends Resource {
 		this.login = login;
 	}
 
-	@Column(table = "user", name = "user_password", nullable = false, length = 50)
 	public String getPassword() {
 		return password;
 	}
