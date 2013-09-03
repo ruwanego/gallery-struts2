@@ -2,7 +2,6 @@ package net.feminaexlux.gallery.struts2.dao;
 
 import net.feminaexlux.gallery.struts2.model.User;
 
-import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 public class UserDAO extends ResourceDAO<User> {
@@ -16,9 +15,5 @@ public class UserDAO extends ResourceDAO<User> {
 
 	public User save(User user) {
 		return super.save(user);
-	}
-
-	@Override
-	protected void saveNew(User resource, EntityManager entityManager) {
 	}
 }

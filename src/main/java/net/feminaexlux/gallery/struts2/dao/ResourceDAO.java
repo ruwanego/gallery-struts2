@@ -1,7 +1,6 @@
 package net.feminaexlux.gallery.struts2.dao;
 
 import net.feminaexlux.gallery.struts2.model.Resource;
-import net.feminaexlux.gallery.struts2.model.ResourceKey;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -21,8 +20,14 @@ public abstract class ResourceDAO<T extends Resource> {
 		this.entityManager = entityManager;
 	}
 
-	public T find(Class<T> clazz, ResourceKey key) {
-		return entityManager.find(clazz, key);
+	public T find(Class<T> clazz, int id, String type) {
+		TypedQuery<T> query = entityManager.createQuery("FROM " + clazz.getSimpleName() + " t " +
+				"WHERE t.id = :id AND t.type = :type", clazz);
+
+		query.setParameter("id", id);
+		query.setParameter("type", type);
+
+		return query.getSingleResult();
 	}
 
 	public List<T> findAll(Class<T> clazz) {
@@ -37,7 +42,12 @@ public abstract class ResourceDAO<T extends Resource> {
 
 		try {
 			if (resource.getId() == 0) {
-				saveNew(resource, entityManager);
+				// FIXME: hacky way of doing things
+				Query query = entityManager.createNativeQuery("SELECT MAX(resource_id) FROM resource");
+				int id = (Integer) query.getSingleResult();
+				resource.setId(id + 1);
+
+				entityManager.persist(resource);
 			} else {
 				entityManager.merge(resource);
 			}
@@ -51,6 +61,4 @@ public abstract class ResourceDAO<T extends Resource> {
 
 		return resource;
 	}
-
-	protected abstract void saveNew(T resource, EntityManager entityManager);
 }

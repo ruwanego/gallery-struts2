@@ -15,6 +15,10 @@ public class User extends Resource {
 	@Column(table = "user", name = "user_password", nullable = false, length = 50)
 	private String password;
 
+	public User() {
+		this.type = ResourceType.USER;
+	}
+
 	public String getLogin() {
 		return login;
 	}

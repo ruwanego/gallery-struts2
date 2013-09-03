@@ -23,7 +23,7 @@ public class Album extends Resource implements Linkable {
 	private String slug;
 
 	public Album() {
-		this.key = new ResourceKey(0, ResourceType.ALBUM);
+		this.type = ResourceType.ALBUM;
 	}
 
 	public Album getParent() {

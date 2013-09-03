@@ -8,6 +8,7 @@
 			<property name="hibernate.hbm2ddl.auto" value=""/>
 			<property name="hibernate.max_fetch_depth" value="1"/>
 			<property name="hibernate.generate_statistics" value="true"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>

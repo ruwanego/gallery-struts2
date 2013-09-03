@@ -3,14 +3,13 @@ package net.feminaexlux.gallery.struts2.service;
 import net.feminaexlux.gallery.struts2.dao.ResourceDAO;
 import net.feminaexlux.gallery.struts2.model.Linkable;
 import net.feminaexlux.gallery.struts2.model.Resource;
-import net.feminaexlux.gallery.struts2.model.ResourceKey;
 import net.feminaexlux.gallery.struts2.utility.StringUtility;
 
 import java.util.Date;
 
 public abstract class ResourceService<T extends Resource> {
 	public T get(int id, String type, Class<T> resourceClass) {
-		return dao().find(resourceClass, new ResourceKey(id, type));
+		return dao().find(resourceClass, id, type);
 	}
 
 	public T save(T resource) {

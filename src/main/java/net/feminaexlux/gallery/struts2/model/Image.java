@@ -32,11 +32,7 @@ public class Image extends Resource implements Linkable {
 	private String slug;
 
 	public Image() {
-		this.key = new ResourceKey(0, ResourceType.IMAGE);
-	}
-
-	public Image(String type) {
-		this.key = new ResourceKey(0, type);
+		this.type = ResourceType.IMAGE;
 	}
 
 	public Album getAlbum() {

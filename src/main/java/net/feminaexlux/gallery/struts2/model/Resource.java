@@ -3,6 +3,7 @@ package net.feminaexlux.gallery.struts2.model;
 import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -10,9 +11,14 @@ import java.util.Date;
 @Inheritance
 @DiscriminatorColumn(name = "resource_type")
 @DiscriminatorOptions(insert = false)
-public class Resource {
-	@EmbeddedId
-	protected ResourceKey key;
+public class Resource implements Serializable {
+	@Id
+	@Column(name = "resource_id")
+	protected int id;
+
+	@Id
+	@Column(name = "resource_type", length = 50)
+	protected String type;
 
 	@Column(name = "resource_name", nullable = false, length = 50)
 	protected String name;
@@ -29,30 +35,20 @@ public class Resource {
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date deleted;
 
-	public ResourceKey getKey() {
-		return key;
-	}
-
-	public void setKey(ResourceKey key) {
-		this.key = key;
-	}
-
-	@Transient
 	public int getId() {
-		if (key == null) {
-			return 0;
-		}
-
-		return key.getId();
+		return id;
 	}
 
-	@Transient
-	public String getType() {
-		if (key == null) {
-			return null;
-		}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-		return key.getType();
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getName() {
@@ -94,10 +90,11 @@ public class Resource {
 
 		Resource resource = (Resource) o;
 
+		if (id != resource.id) return false;
 		if (created != null ? !created.equals(resource.created) : resource.created != null) return false;
 		if (deleted != null ? !deleted.equals(resource.deleted) : resource.deleted != null) return false;
-		if (key != null ? !key.equals(resource.key) : resource.key != null) return false;
 		if (name != null ? !name.equals(resource.name) : resource.name != null) return false;
+		if (type != null ? !type.equals(resource.type) : resource.type != null) return false;
 		if (updated != null ? !updated.equals(resource.updated) : resource.updated != null) return false;
 
 		return true;
@@ -105,7 +102,8 @@ public class Resource {
 
 	@Override
 	public int hashCode() {
-		int result = key != null ? key.hashCode() : 0;
+		int result = id;
+		result = 31 * result + (type != null ? type.hashCode() : 0);
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (created != null ? created.hashCode() : 0);
 		result = 31 * result + (updated != null ? updated.hashCode() : 0);
