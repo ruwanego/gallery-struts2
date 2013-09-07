@@ -5,15 +5,11 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorValue(ResourceType.IMAGE)
 @SecondaryTable(name = "image", pkJoinColumns = {
-		@PrimaryKeyJoinColumn(name = "image_id", referencedColumnName = "resource_id"),
-		@PrimaryKeyJoinColumn(name = "image_type", referencedColumnName = "resource_type")
+		@PrimaryKeyJoinColumn(name = "image_id", referencedColumnName = "resource_id")
 })
 public class Image extends Resource implements Linkable {
 	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(table = "image", name = "image_album_id", referencedColumnName = "resource_id"),
-			@JoinColumn(table = "image", name = "image_album_type", referencedColumnName = "resource_type")
-	})
+	@JoinColumn(table = "image", name = "image_album_id", referencedColumnName = "resource_id")
 	private Album album;
 
 	@Column(table = "image", name = "image_content", nullable = false)

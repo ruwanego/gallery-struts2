@@ -6,12 +6,5 @@
 		<title>Gallery</title>
 	</head>
 	<body>
-		<s:iterator value="albums" var="album">
-			<h1>${album.type} (${album.id}): ${album.name}</h1>
-
-			<p>${album.description}</p>
-		</s:iterator>
-
-		<a href="<s:url action="Login" />">Login</a>
 	</body>
 </html>

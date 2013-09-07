@@ -29,6 +29,18 @@ public class Administration extends Controller {
 
 	private Map<String, String> form;
 
+	// Models
+	private List<Album> albums;
+	private List<Image> images;
+
+	@Override
+	public String execute() throws Exception {
+		albums = albumService.getAll();
+		images = imageService.getAll();
+
+		return SUCCESS;
+	}
+
 	public String saveAlbum() {
 		if (form != null && !form.isEmpty()) {
 			Album album = new Album();
@@ -54,6 +66,7 @@ public class Administration extends Controller {
 				image.setThumbnail(byteArray);
 				image.setName(uploadFileName);
 				image.setContentType(uploadContentType);
+				image.setDescription(form.get("image_description"));
 
 				imageService.save(image);
 			} catch (IOException ioException) {
@@ -89,10 +102,10 @@ public class Administration extends Controller {
 	}
 
 	public List<Album> getAlbums() {
-		return albumService.getAll();
+		return albums;
 	}
 
 	public List<Image> getImages() {
-		return imageService.getAll();
+		return images;
 	}
 }

@@ -8,11 +8,17 @@
 	<body>
 		<h1>Administration</h1>
 
-		<s:iterator value="images" var="image">
-			<li>
-					${image.album.name}: ${image.name}
-			</li>
-		</s:iterator>
+		<ul>
+			<s:iterator value="images" var="image_container">
+				<s:url action="ImageLoader" method="image" var="image_data">
+					<s:param name="imageId">
+						${image_container.id}
+					</s:param>
+				</s:url>
+				<li>${image_container.name}</li>
+				<li><img src="${image_data}"></li>
+			</s:iterator>
+		</ul>
 
 		<form action="<s:url action="Administration" method="saveAlbum" />" method="post">
 			<label>Name: <input type="text" name="form.album_name"></label>
@@ -28,7 +34,7 @@
 					</option>
 				</s:iterator>
 			</select>
-			<textarea name="description"></textarea>
+			<label>Image description: <textarea name="form.image_description"></textarea></label>
 			<input type="file" name="upload">
 			<input type="submit" value="Upload Image">
 		</form>

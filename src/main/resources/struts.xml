@@ -29,5 +29,11 @@
 				/view/administration/administration.jsp
 			</result>
 		</action>
+
+		<action name="ImageLoader" class="net.feminaexlux.gallery.struts2.controller.ImageLoader">
+			<result>
+				/view/gallery/image.jsp
+			</result>
+		</action>
 	</package>
 </struts>

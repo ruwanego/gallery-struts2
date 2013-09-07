@@ -14,9 +14,9 @@ import java.util.Date;
 public class Resource implements Serializable {
 	@Id
 	@Column(name = "resource_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
 
-	@Id
 	@Column(name = "resource_type", length = 50)
 	protected String type;
 

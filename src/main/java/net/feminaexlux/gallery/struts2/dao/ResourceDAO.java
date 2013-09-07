@@ -42,11 +42,6 @@ public abstract class ResourceDAO<T extends Resource> {
 
 		try {
 			if (resource.getId() == 0) {
-				// FIXME: hacky way of doing things
-				Query query = entityManager.createNativeQuery("SELECT MAX(resource_id) FROM resource");
-				int id = (Integer) query.getSingleResult();
-				resource.setId(id + 1);
-
 				entityManager.persist(resource);
 			} else {
 				entityManager.merge(resource);

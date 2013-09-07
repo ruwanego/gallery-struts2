@@ -2,7 +2,6 @@ package net.feminaexlux.gallery.struts2.controller;
 
 import net.feminaexlux.gallery.struts2.model.Image;
 import net.feminaexlux.gallery.struts2.service.ImageService;
-import net.feminaexlux.gallery.struts2.utility.StringUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -19,12 +18,11 @@ public class ImageLoader extends Controller {
 	private ImageService imageService;
 
 	private int imageId;
-	private String imageType;
 
 	public String image() {
-		if (imageId > 0 && StringUtility.isNotEmpty(imageType)) {
+		if (imageId > 0) {
 			try {
-				Image image = imageService.getImage(imageId, imageType);
+				Image image = imageService.getImage(imageId);
 				HttpServletResponse response = ServletActionContext.getResponse();
 				response.setHeader("Content-Disposition", "attachment;filename=" + image.getName());
 				response.setContentType(image.getContentType());
@@ -48,9 +46,5 @@ public class ImageLoader extends Controller {
 
 	public void setImageId(int imageId) {
 		this.imageId = imageId;
-	}
-
-	public void setImageType(String imageType) {
-		this.imageType = imageType;
 	}
 }

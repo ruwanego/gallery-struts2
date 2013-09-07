@@ -20,16 +20,13 @@ USE `gallery`;
 DROP TABLE IF EXISTS `album`;
 CREATE TABLE IF NOT EXISTS `album` (
   `album_id`          INT(10)     NOT NULL,
-  `album_type`        VARCHAR(50) NOT NULL,
   `album_description` TEXT        NOT NULL,
   `album_slug`        VARCHAR(50) NOT NULL,
   `album_parent_id`   INT(10) DEFAULT NULL,
-  `album_parent_type` VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (`album_id`, `album_type`),
+  PRIMARY KEY (`album_id`),
   UNIQUE KEY `album_slug` (`album_slug`),
-  KEY `FK2_album_parent` (`album_parent_id`, `album_parent_type`),
-  CONSTRAINT `FK1_album_resource` FOREIGN KEY (`album_id`, `album_type`) REFERENCES `resource` (`resource_id`, `resource_type`),
-  CONSTRAINT `FK2_album_parent` FOREIGN KEY (`album_parent_id`, `album_parent_type`) REFERENCES `album` (`album_id`, `album_type`)
+  KEY `FK1_album_parent` (`album_parent_id`),
+  CONSTRAINT `FK1_album_parent` FOREIGN KEY (`album_parent_id`) REFERENCES `album` (`album_id`)
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8;
@@ -41,19 +38,17 @@ CREATE TABLE IF NOT EXISTS `album` (
 DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
   `image_id`           INT(10)     NOT NULL,
-  `image_type`         VARCHAR(50) NOT NULL,
   `image_description`  TEXT        NOT NULL,
   `image_slug`         VARCHAR(50) NOT NULL,
   `image_content_type` VARCHAR(50) NOT NULL,
   `image_content`      MEDIUMBLOB  NOT NULL,
   `image_thumbnail`    MEDIUMBLOB  NOT NULL,
   `image_album_id`     INT(10)     NOT NULL,
-  `image_album_type`   VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`image_id`, `image_type`),
+  PRIMARY KEY (`image_id`),
   UNIQUE KEY `image_slug` (`image_slug`),
-  KEY `FK2_image_album` (`image_album_id`, `image_album_type`),
-  CONSTRAINT `FK1_image_resource` FOREIGN KEY (`image_id`, `image_type`) REFERENCES `resource` (`resource_id`, `resource_type`),
-  CONSTRAINT `FK2_image_album` FOREIGN KEY (`image_album_id`, `image_album_type`) REFERENCES `album` (`album_id`, `album_type`)
+  KEY `FK2_image_album` (`image_album_id`),
+  CONSTRAINT `FK1_image_resource` FOREIGN KEY (`image_id`) REFERENCES `resource` (`resource_id`),
+  CONSTRAINT `FK2_image_album` FOREIGN KEY (`image_album_id`) REFERENCES `album` (`album_id`)
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8;
@@ -70,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `resource` (
   `resource_created` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `resource_updated` TIMESTAMP   NULL DEFAULT NULL,
   `resource_deleted` TIMESTAMP   NULL DEFAULT NULL,
-  PRIMARY KEY (`resource_id`, `resource_type`),
+  PRIMARY KEY (`resource_id`),
   UNIQUE KEY `resource_type_resource_name` (`resource_type`, `resource_name`)
 )
   ENGINE =InnoDB
@@ -83,12 +78,11 @@ CREATE TABLE IF NOT EXISTS `resource` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id`       INT(10)     NOT NULL,
-  `user_type`     VARCHAR(50) NOT NULL,
   `user_login`    VARCHAR(50) NOT NULL,
   `user_password` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`user_id`, `user_type`),
+  PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_login` (`user_login`),
-  CONSTRAINT `FK1_user_resource` FOREIGN KEY (`user_id`, `user_type`) REFERENCES `resource` (`resource_id`, `resource_type`)
+  CONSTRAINT `FK1_user_resource` FOREIGN KEY (`user_id`) REFERENCES `resource` (`resource_id`)
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8;

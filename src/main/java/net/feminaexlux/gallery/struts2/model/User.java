@@ -5,8 +5,7 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorValue(ResourceType.USER)
 @SecondaryTable(name = "user", pkJoinColumns = {
-		@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "resource_id"),
-		@PrimaryKeyJoinColumn(name = "user_type", referencedColumnName = "resource_type")
+		@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "resource_id")
 })
 public class User extends Resource {
 	@Column(table = "user", name = "user_login", nullable = false, length = 50)
