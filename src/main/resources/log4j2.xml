@@ -2,13 +2,27 @@
 <configuration status="debug" strict="true" name="XMLConfigTest"
                packages="org.apache.logging.log4j.test">
 	<properties>
-		<property name="filename">target/gallery-struts2.log</property>
-		<property name="hibernate">target/hibernate.log</property>
+		<property name="filename">gallery-struts2.log</property>
+		<property name="hibernate">hibernate.log</property>
 	</properties>
 
 	<appenders>
-		<appender type="Console" name="STDOUT">
-			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		<appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${filename}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<!-- rollover daily -->
+				<fileNamePattern>${destination}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<!-- Keep logs for 7 days -->
+				<maxHistory>7</maxHistory>
+
+				<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+					<!-- or whenever the file size reaches 100MB -->
+					<maxFileSize>100MB</maxFileSize>
+				</timeBasedFileNamingAndTriggeringPolicy>
+			</rollingPolicy>
+			<encoder>
+				<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			</encoder>
 		</appender>
 		<appender type="File" name="File" fileName="${filename}">
 			<layout type="PatternLayout">
@@ -19,6 +33,11 @@
 			<layout type="PatternLayout">
 				<pattern>%d %p %C{1.} [%t] %m%n</pattern>
 			</layout>
+		</appender>
+		<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+			</encoder>
 		</appender>
 	</appenders>
 
