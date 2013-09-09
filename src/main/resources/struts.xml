@@ -6,7 +6,22 @@
 	<constant name="struts.devMode" value="true"/>
 
 	<package name="gallery-struts2" extends="struts-default">
+		<interceptors>
+			<interceptor name="login" class="net.feminaexlux.gallery.struts2.interceptor.LoginInterceptor"/>
+
+			<interceptor-stack name="gallery-stack">
+				<interceptor-ref name="basicStack"/>
+				<interceptor-ref name="validationWorkflowStack"/>
+				<interceptor-ref name="login"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="gallery-stack"/>
+
 		<global-results>
+			<result name="loginRedirect" type="redirectAction">
+				Login
+			</result>
 			<result name="redirect" type="redirectAction">
 				${action}
 			</result>

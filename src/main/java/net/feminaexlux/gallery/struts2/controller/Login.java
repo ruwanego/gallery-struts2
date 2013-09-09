@@ -1,10 +1,14 @@
 package net.feminaexlux.gallery.struts2.controller;
 
+import com.opensymphony.xwork2.ActionContext;
+import net.feminaexlux.gallery.struts2.model.Session;
+import net.feminaexlux.gallery.struts2.model.User;
 import net.feminaexlux.gallery.struts2.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.Map;
 
 public class Login extends Controller {
@@ -24,7 +28,9 @@ public class Login extends Controller {
 
 	public String login() {
 		try {
-			userService.loginUser(form.get(LOGIN), form.get(PASSWORD));
+			User loggedInUser = userService.loginUser(form.get(LOGIN), form.get(PASSWORD));
+			Session session = new Session(loggedInUser.getId(), new Date());
+			ActionContext.getContext().getSession().put("session", session);
 
 			return redirectToAction("Administration");
 		} catch (SecurityException securityException) {

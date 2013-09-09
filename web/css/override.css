@@ -1,0 +1,45 @@
+html,
+body,
+article {
+    height: 100%;
+}
+
+header {
+    font-size: xx-large;
+}
+
+footer {
+    height: 60px;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: #555;
+    text-decoration: underline overline;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.page-header {
+    margin: 0 20px;
+    border-bottom: none;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}

@@ -20,6 +20,10 @@ public class AlbumService extends ResourceService<Album> {
 		return albumDAO.findAll(Album.class);
 	}
 
+	public List<Album> getTopLevelAlbums() {
+		return albumDAO.getTopLevelAlbums();
+	}
+
 	@Override
 	protected ResourceDAO dao() {
 		return albumDAO;

@@ -1,5 +1,7 @@
 package net.feminaexlux.gallery.struts2.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +9,8 @@ import javax.persistence.*;
 @SecondaryTable(name = "image", pkJoinColumns = {
 		@PrimaryKeyJoinColumn(name = "image_id", referencedColumnName = "resource_id")
 })
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Image extends Resource implements Linkable {
 	@ManyToOne
 	@JoinColumn(table = "image", name = "image_album_id", referencedColumnName = "resource_id")

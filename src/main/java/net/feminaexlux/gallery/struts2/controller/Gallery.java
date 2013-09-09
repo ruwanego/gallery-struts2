@@ -15,7 +15,7 @@ public class Gallery extends Controller {
 
 	@Override
 	public String execute() throws Exception {
-		albums = albumService.getAll();
+		albums = albumService.getTopLevelAlbums();
 
 		return SUCCESS;
 	}

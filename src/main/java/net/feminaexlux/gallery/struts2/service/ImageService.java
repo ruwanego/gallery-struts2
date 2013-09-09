@@ -15,6 +15,10 @@ public class ImageService extends ResourceService<Image> {
 		return super.get(id, ResourceType.IMAGE, Image.class);
 	}
 
+	public Image getImageBySlug(final String slug) {
+		return dao().findBySlug(slug);
+	}
+
 	public List<Image> getAll() {
 		return dao().findAll(Image.class);
 	}

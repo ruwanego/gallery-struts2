@@ -5,12 +5,23 @@
 		<title>Gallery</title>
 	</head>
 	<body>
-		<s:iterator value="albums" var="album">
-			<h1>${album.type} (${album.id}): ${album.name}</h1>
+		<div class="row">
+			<s:iterator value="albums" var="album">
+				<div class="col-md-<s:property value="%{12 / albums.size()}" />">
+					<h1 class="text-center">${album.type} (${album.id}): ${album.name}</h1>
 
-			<p>${album.description}</p>
-		</s:iterator>
+					<p class="lead">${album.description}</p>
 
-		<a href="<s:url action="Login" />">Login</a>
+					<s:iterator value="#album.images" var="album_image">
+						<s:url action="ImageLoader" method="thumbnail" var="album_image_url">
+							<s:param name="slug">
+								${album_image.slug}
+							</s:param>
+						</s:url>
+						<img src="${album_image_url}" alt="${album_image.name}">
+					</s:iterator>
+				</div>
+			</s:iterator>
+		</div>
 	</body>
 </html>

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class Administration extends Controller {
+public class Administration extends Controller implements AuthenticationAware {
 	private static final Logger LOG = LogManager.getLogger(Administration.class);
 
 	@Autowired

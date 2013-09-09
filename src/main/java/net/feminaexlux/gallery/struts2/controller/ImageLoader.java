@@ -2,6 +2,7 @@ package net.feminaexlux.gallery.struts2.controller;
 
 import net.feminaexlux.gallery.struts2.model.Image;
 import net.feminaexlux.gallery.struts2.service.ImageService;
+import net.feminaexlux.gallery.struts2.utility.StringUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -17,23 +18,15 @@ public class ImageLoader extends Controller {
 	@Autowired
 	private ImageService imageService;
 
-	private int imageId;
+	private String slug;
 
 	public String image() {
-		if (imageId > 0) {
+		if (StringUtility.isNotEmpty(slug)) {
 			try {
-				Image image = imageService.getImage(imageId);
-				HttpServletResponse response = ServletActionContext.getResponse();
-				response.setHeader("Content-Disposition", "attachment;filename=" + image.getName());
-				response.setContentType(image.getContentType());
-				response.setContentLength(image.getImage().length);
-
-				OutputStream outputStream = response.getOutputStream();
-				outputStream.write(image.getImage());
-				outputStream.flush();
-				outputStream.close();
+				Image image = imageService.getImageBySlug(slug);
+				prepareResponse(image.getName(), image.getContentType(), image.getImage());
 			} catch (IOException ioException) {
-				LOG.error("Error uploading file {}\n{}", imageId, ioException);
+				LOG.error("Error uploading file {}\n{}", slug, ioException);
 			}
 		}
 
@@ -41,10 +34,31 @@ public class ImageLoader extends Controller {
 	}
 
 	public String thumbnail() {
+		if (StringUtility.isNotEmpty(slug)) {
+			try {
+				Image image = imageService.getImageBySlug(slug);
+				prepareResponse(image.getName(), image.getContentType(), image.getThumbnail());
+			} catch (IOException ioException) {
+				LOG.error("Error uploading file {}\n{}", slug, ioException);
+			}
+		}
+
 		return SUCCESS;
 	}
 
-	public void setImageId(int imageId) {
-		this.imageId = imageId;
+	private void prepareResponse(final String name, final String contentType, final byte[] data) throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setHeader("Content-Disposition", "attachment;filename=" + name);
+		response.setContentType(contentType);
+		response.setContentLength(data.length);
+
+		OutputStream outputStream = response.getOutputStream();
+		outputStream.write(data);
+		outputStream.flush();
+		outputStream.close();
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 }

@@ -1,5 +1,7 @@
 package net.feminaexlux.gallery.struts2.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +9,8 @@ import javax.persistence.*;
 @SecondaryTable(name = "user", pkJoinColumns = {
 		@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "resource_id")
 })
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends Resource {
 	@Column(table = "user", name = "user_login", nullable = false, length = 50)
 	private String login;

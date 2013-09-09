@@ -8,7 +8,7 @@
 
 		<p>Redirecting you to the gallery...</p>
 		<%
-			response.sendRedirect("Gallery.action");
+			response.sendRedirect("Gallery");
 		%>
 	</body>
 </html>
